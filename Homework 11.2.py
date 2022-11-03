@@ -1,36 +1,17 @@
-Задание #2:
-
-Права доступа
-Вирус повредил систему прав доступа к файлам. Известно, что над каждым файлом можно производить определенные действия:
-
-запись – W;
-чтение – R;
-запуск – X.
-
-На вход программе подается:
-
-число n – количество файлов;
-n строк с именами файлов и допустимыми операциями;
-число m – количество запросов к файлам;
-m запросов вида «операция файл».
-Для каждого допустимого запроса программа должна возвращать OK, для недопустимого – Access denied.
-
-Пример ввода:
-3
-python.exe X
-book.txt R W
-notebook.exe R W X
-5
-read python.exe
-read book.txt
-write notebook.exe
-execute notebook.exe
-write book.txt
-
-Пример вывода:
-Access denied
-OK
-OK
-OK
-OK
-
+permissions = {}
+n = int(input("Enter number of files: "))
+for _ in range(n):
+    m = input("Enter name of file and permissible operation: ").split()
+    permissions[m[0]] = set(m[1:])
+for _ in range(int(input("Enter number of requests to the files: "))):
+        perm, file = input("Enter request: operation and file: ").split()
+        if perm == 'read':
+            perm = 'R'
+        if perm == 'write':
+            perm = 'W'
+        if perm == 'execute':
+            perm = 'X'
+        if perm in permissions[file]:
+            print('OK')
+        else:
+            print('Access denied')
